@@ -1,4 +1,6 @@
 AmritaRecycleCenter::Application.routes.draw do
+  resources :locations
+
   resources :categories
 
   # The priority is based upon order of creation: first created -> highest priority.
