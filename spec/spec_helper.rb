@@ -10,7 +10,8 @@ Spork.prefork do
   require 'rspec/rails'
   require 'rspec/autorun'
   require 'database_cleaner'
-  require 'websocket_rails/spec_helpers'
+  require 'rspec_rails_setup'
+
   require 'timecop'
   require 'vcr'
   # Requires supporting ruby files with custom matchers and macros, etc,
@@ -34,7 +35,9 @@ Spork.prefork do
     # config.mock_with :mocha
     # config.mock_with :flexmock
     # config.mock_with :rr
-
+    
+    config.include FactoryGirl::Syntax::Methods
+    
     config.before(:suite) do
       DatabaseCleaner.strategy = :truncation
     end
@@ -66,7 +69,6 @@ end
 
 Spork.each_run do
   FactoryGirl.reload
-  DanceCardServer::Application.reload_routes!
-  # Dir[Rails.root.join('spec/support/**/*.rb')].each{|f| load f}
+  Rails.application.reload_routes!
 end
 

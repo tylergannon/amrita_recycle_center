@@ -176,6 +176,7 @@ DEPENDENCIES
   pg
   rails (= 4.0.2)
   responders
+  rspec-rails
   rspec_rails_setup!
   sass-rails (~> 4.0.0)
   sdoc
