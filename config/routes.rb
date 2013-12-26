@@ -1,4 +1,6 @@
 AmritaRecycleCenter::Application.routes.draw do
+  resources :accounts
+
   resources :locations
 
   resources :categories

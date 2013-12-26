@@ -11,10 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131223065351) do
+ActiveRecord::Schema.define(version: 20131226043403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accounts", force: true do |t|
+    t.integer  "category_id"
+    t.integer  "location_id"
+    t.string   "slug"
+    t.boolean  "incoming"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "accounts", ["category_id"], name: "index_accounts_on_category_id", using: :btree
+  add_index "accounts", ["location_id"], name: "index_accounts_on_location_id", using: :btree
 
   create_table "categories", force: true do |t|
     t.string   "name"

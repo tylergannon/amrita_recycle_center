@@ -1,0 +1,18 @@
+p#notice = notice
+
+p
+  strong Category:
+  = @account.category
+p
+  strong Location:
+  = @account.location
+p
+  strong Slug:
+  = @account.slug
+p
+  strong Incoming:
+  = @account.incoming
+
+= link_to 'Edit', edit_account_path(@account)
+'|
+= link_to 'Back', accounts_path
