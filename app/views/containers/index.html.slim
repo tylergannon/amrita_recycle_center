@@ -1,0 +1,23 @@
+h1 Listing containers
+
+table
+  tr
+    th Name
+    th Capacity
+    th Empty weight
+    th
+    th
+    th
+
+  - @containers.each do |container|
+    tr
+      td = container.name
+      td = container.capacity
+      td = container.empty_weight
+      td = link_to 'Show', container
+      td = link_to 'Edit', edit_container_path(container)
+      td = link_to 'Destroy', container, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Container', new_container_path

@@ -1,0 +1,27 @@
+h1 Listing transfer_line_items
+
+table
+  tr
+    th Credit
+    th Account
+    th Container
+    th Gross weight
+    th Net weight
+    th
+    th
+    th
+
+  - @transfer_line_items.each do |transfer_line_item|
+    tr
+      td = transfer_line_item.credit
+      td = transfer_line_item.account
+      td = transfer_line_item.container
+      td = transfer_line_item.gross_weight
+      td = transfer_line_item.net_weight
+      td = link_to 'Show', transfer_line_item
+      td = link_to 'Edit', edit_transfer_line_item_path(transfer_line_item)
+      td = link_to 'Destroy', transfer_line_item, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Transfer line item', new_transfer_line_item_path

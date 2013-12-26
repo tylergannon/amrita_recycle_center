@@ -1,0 +1,12 @@
+= form_for @transfer do |f|
+  - if @transfer.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@transfer.errors.count, "error")} prohibited this transfer from being saved:"
+      ul
+        - @transfer.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :transferred_at
+    = f.datetime_select :transferred_at
+  .actions = f.submit 'Save'

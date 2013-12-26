@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @container.name
+p
+  strong Capacity:
+  = @container.capacity
+p
+  strong Empty weight:
+  = @container.empty_weight
+
+= link_to 'Edit', edit_container_path(@container)
+'|
+= link_to 'Back', containers_path

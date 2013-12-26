@@ -1,4 +1,10 @@
 AmritaRecycleCenter::Application.routes.draw do
+  resources :transfer_line_items
+
+  resources :containers
+
+  resources :transfers
+
   resources :accounts
 
   resources :locations

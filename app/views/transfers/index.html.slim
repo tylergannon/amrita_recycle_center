@@ -1,0 +1,19 @@
+h1 Listing transfers
+
+table
+  tr
+    th Transferred at
+    th
+    th
+    th
+
+  - @transfers.each do |transfer|
+    tr
+      td = transfer.transferred_at
+      td = link_to 'Show', transfer
+      td = link_to 'Edit', edit_transfer_path(transfer)
+      td = link_to 'Destroy', transfer, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Transfer', new_transfer_path

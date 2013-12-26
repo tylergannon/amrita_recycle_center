@@ -1,0 +1,24 @@
+= form_for @transfer_line_item do |f|
+  - if @transfer_line_item.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@transfer_line_item.errors.count, "error")} prohibited this transfer_line_item from being saved:"
+      ul
+        - @transfer_line_item.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :credit
+    = f.check_box :credit
+  .field
+    = f.label :account
+    = f.text_field :account
+  .field
+    = f.label :container
+    = f.text_field :container
+  .field
+    = f.label :gross_weight
+    = f.text_field :gross_weight
+  .field
+    = f.label :net_weight
+    = f.text_field :net_weight
+  .actions = f.submit 'Save'

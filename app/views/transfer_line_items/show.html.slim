@@ -1,0 +1,21 @@
+p#notice = notice
+
+p
+  strong Credit:
+  = @transfer_line_item.credit
+p
+  strong Account:
+  = @transfer_line_item.account
+p
+  strong Container:
+  = @transfer_line_item.container
+p
+  strong Gross weight:
+  = @transfer_line_item.gross_weight
+p
+  strong Net weight:
+  = @transfer_line_item.net_weight
+
+= link_to 'Edit', edit_transfer_line_item_path(@transfer_line_item)
+'|
+= link_to 'Back', transfer_line_items_path
