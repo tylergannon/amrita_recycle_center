@@ -4,8 +4,8 @@ class CreateTransferLineItems < ActiveRecord::Migration
       t.boolean :credit
       t.references :account, index: true
       t.references :container, index: true
-      t.decimal :gross_weight
-      t.decimal :net_weight
+      t.decimal :gross_weight, precision: 6, scale: 2
+      t.decimal :net_weight, precision: 6, scale: 2
 
       t.timestamps
     end
