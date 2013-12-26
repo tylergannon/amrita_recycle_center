@@ -13,7 +13,7 @@ Spork.prefork do
   require 'rspec_rails_setup'
 
   require 'timecop'
-  require 'vcr'
+  # require 'vcr'
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
   Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
@@ -22,10 +22,10 @@ Spork.prefork do
   # If you are not using ActiveRecord, you can remove this line.
   ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
-  VCR.configure do |c|
-    c.cassette_library_dir = 'spec/vcr_cassettes'
-    c.hook_into :webmock # or :fakeweb
-  end
+  # VCR.configure do |c|
+  #   c.cassette_library_dir = 'spec/vcr_cassettes'
+  #   c.hook_into :webmock # or :fakeweb
+  # end
 
   RSpec.configure do |config|
     # ## Mock Framework

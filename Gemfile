@@ -37,6 +37,6 @@ group :development, :test do
   gem 'database_cleaner', require: false
   gem 'spork', '1.0.0rc4'
   gem 'timecop'
-  gem 'vcr'
-  gem 'webmock'
+  # gem 'vcr'
+  # gem 'webmock'
 end
