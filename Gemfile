@@ -15,6 +15,9 @@ gem 'devise'
 gem 'cancan'
 gem 'responders'
 
+gem 'zurb-foundation'
+gem 'foundation-datetimepicker-rails'
+
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
