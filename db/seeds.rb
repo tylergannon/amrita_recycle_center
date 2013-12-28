@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-
+Category.delete_all
 Category.create([
   {name: "Hard Items"},
   {name: "Soft Plastic"},
@@ -14,6 +14,7 @@ Category.create([
   {name: "Sanitary"}
 ])
 
+Location.delete_all
 Location.create([
   {name: "Waste Station"},
   {name: "Beach"},
@@ -25,6 +26,13 @@ Location.create([
   {name: "Downstream"}
 ])
 
+Location.all.each do |location|
+  Category.all.each do |category|
+    Account.create location: location, category: category
+  end
+end
+
+Container.delete_all
 Container.create([
   {name: '120L Red Bin', capacity: 120, empty_weight: 3.5},
   {name: '120L Blue Bin', capacity: 120, empty_weight: 3.5},

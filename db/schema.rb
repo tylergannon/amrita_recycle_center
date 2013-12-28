@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20131226052142) do
     t.boolean  "credit"
     t.integer  "account_id"
     t.integer  "container_id"
+    t.integer  "transfer_id"
     t.decimal  "gross_weight", precision: 6, scale: 2
     t.decimal  "net_weight",   precision: 6, scale: 2
     t.datetime "created_at"
@@ -60,9 +61,11 @@ ActiveRecord::Schema.define(version: 20131226052142) do
 
   add_index "transfer_line_items", ["account_id"], name: "index_transfer_line_items_on_account_id", using: :btree
   add_index "transfer_line_items", ["container_id"], name: "index_transfer_line_items_on_container_id", using: :btree
+  add_index "transfer_line_items", ["transfer_id"], name: "index_transfer_line_items_on_transfer_id", using: :btree
 
   create_table "transfers", force: true do |t|
     t.datetime "transferred_at"
+    t.integer  "source_account_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

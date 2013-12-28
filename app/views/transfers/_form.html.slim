@@ -6,7 +6,29 @@
         - @transfer.errors.full_messages.each do |message|
           li = message
 
-  .field
+  .panel
     = f.label :transferred_at
-    = f.datetime_select :transferred_at
+    = f.text_field :transferred_at, class: 'datetime_field'
+  h2 From:
+  = f.label :from_location_id, "Location"
+  = f.collection_select :from_location_id, Location.all, :id, :name
+  = f.label :from_category_id, "Category"
+  = f.collection_select :from_category_id, Category.all, :id, :name
+  
+  h2 To:
+  = f.label :from_location_id, "Location"
+  = f.collection_select :from_location_id, Location.all, :id, :name
+
+  h2 Line Items
+  button id="add_line_item" Add Item
+  #line_items
+    = f.fields_for :transfer_line_items do |ff|
+      .panel.line_item
+        = ff.label :gross_weight
+        = ff.text_field :gross_weight
+        = ff.label :container
+        = ff.collection_select :container_id, Container.all, :id, :name
+        = ff.label :account
+        = ff.collection_select :account_id, Account.all, :id, :name
+  
   .actions = f.submit 'Save'

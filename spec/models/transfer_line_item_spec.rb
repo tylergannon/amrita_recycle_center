@@ -1,5 +1,10 @@
 require 'spec_helper'
 
 describe TransferLineItem do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject {build :transfer_line_item}
+  
+  it {should belong_to(:account)}
+  it {should belong_to(:container)}
+  it {should belong_to(:transfer)}
+
 end

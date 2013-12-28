@@ -23,7 +23,26 @@ describe TransfersController do
   # This should return the minimal set of attributes required to create a valid
   # Transfer. As you add validations to Transfer, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "transferred_at" => "2013-12-26 10:35:55" } }
+  
+  let(:source_account) {create :account}
+  let(:destination_account1) {create :account}
+  let(:destination_account2) {create :account}
+  
+  let(:container) {create :container}
+  
+  let(:transfer_line_item1) {build :transfer_line_item, gross_weight: 23.4, container: container, account: destination_account1}
+  let(:transfer_line_item2) {build :transfer_line_item, gross_weight: 33.12, container: container, account: destination_account2}
+  
+  let(:valid_attributes) {
+    {"transferred_at"=>"2013-12-27 11:37:00 +0530", 
+      "from_location_id"=>source_account.location.id.to_s, 
+      "from_category_id"=>source_account.category.id.to_s, 
+      "transfer_line_items_attributes"=> {
+        "0"=>transfer_line_item1.attributes,
+        "1"=>transfer_line_item2.attributes
+      }
+    }
+  }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -78,6 +97,16 @@ describe TransfersController do
       it "redirects to the created transfer" do
         post :create, {:transfer => valid_attributes}, valid_session
         response.should redirect_to(Transfer.last)
+      end
+      
+      describe "it creates the correct data" do
+        let(:new_transfer) {Transfer.last}
+        before :each do
+          post :create, transfer: valid_attributes
+        end
+        it "should have a line item describing the source" do
+          new_transfer.transfer_line_items.should_not be_empty
+        end
       end
     end
 

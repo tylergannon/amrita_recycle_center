@@ -17,6 +17,7 @@ gem 'responders'
 
 gem 'zurb-foundation'
 gem 'foundation-datetimepicker-rails'
+gem 'underscore-rails'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby

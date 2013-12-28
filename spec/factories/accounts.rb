@@ -2,9 +2,8 @@
 
 FactoryGirl.define do
   factory :account do
-    category nil
-    location nil
-    slug "MyString"
+    category
+    location
     incoming false
   end
 end

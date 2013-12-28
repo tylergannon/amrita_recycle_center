@@ -12,6 +12,7 @@ class TransfersController < ApplicationController
 
   def new
     @transfer = Transfer.new
+    @transfer.transfer_line_items.build
     respond_with(@transfer)
   end
 
@@ -20,6 +21,8 @@ class TransfersController < ApplicationController
 
   def create
     @transfer = Transfer.new(transfer_params)
+    
+    
     @transfer.save
     respond_with(@transfer)
   end
@@ -40,6 +43,6 @@ class TransfersController < ApplicationController
     end
 
     def transfer_params
-      params.require(:transfer).permit(:transferred_at)
+      params.require(:transfer).permit(:transferred_at, :transfer_line_items)
     end
 end

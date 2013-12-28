@@ -3,6 +3,9 @@ p#notice = notice
 p
   strong Transferred at:
   = @transfer.transferred_at
+  - @transfer.transfer_line_items.each do |transfer_line_item|
+    .panel
+      = transfer_line_item.gross_weight
 
 = link_to 'Edit', edit_transfer_path(@transfer)
 '|
