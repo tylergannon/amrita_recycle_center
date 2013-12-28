@@ -101,11 +101,47 @@ describe TransfersController do
       
       describe "it creates the correct data" do
         let(:new_transfer) {Transfer.last}
+        let(:debit) {new_transfer.debit}
         before :each do
           post :create, transfer: valid_attributes
+          new_transfer.reload
         end
-        it "should have a line item describing the source" do
-          new_transfer.transfer_line_items.should_not be_empty
+        describe "debit properties" do
+          it "should have a line item describing the source" do
+            debit.should_not be_nil
+          end
+          it "should have the correct total weight." do
+            debit.gross_weight.should == -(23.4 + 33.12)
+          end
+          it "should come from the correct account" do
+            debit.account.should == source_account
+          end
+          it "should have no container" do
+            debit.container.should be_nil
+          end
+        end
+        
+        describe "credits" do
+          let(:credits) {new_transfer.credits}
+          it "should have two of them" do
+            credits.should have(2).items
+          end
+          
+          describe "first object" do
+            let(:credit1) {credits.select{|t| t.gross_weight == 33.12}.first}
+            
+            it "should have the correct container" do
+              credit1.container.should == transfer_line_item2.container
+            end
+            
+            it "should have the correct account" do
+              credit1.account.should == transfer_line_item2.account
+            end
+            
+            it "should have the correct gross weight" do
+              credit1.gross_weight.should == 33.12
+            end
+          end
         end
       end
     end

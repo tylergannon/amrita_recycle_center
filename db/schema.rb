@@ -36,8 +36,8 @@ ActiveRecord::Schema.define(version: 20131226052142) do
 
   create_table "containers", force: true do |t|
     t.string   "name"
-    t.decimal  "capacity",     precision: 6, scale: 2
-    t.decimal  "empty_weight", precision: 6, scale: 2
+    t.decimal  "capacity",     precision: 7, scale: 2
+    t.decimal  "empty_weight", precision: 7, scale: 2
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -53,8 +53,8 @@ ActiveRecord::Schema.define(version: 20131226052142) do
     t.integer  "account_id"
     t.integer  "container_id"
     t.integer  "transfer_id"
-    t.decimal  "gross_weight", precision: 6, scale: 2
-    t.decimal  "net_weight",   precision: 6, scale: 2
+    t.decimal  "gross_weight", precision: 7, scale: 2
+    t.decimal  "net_weight",   precision: 7, scale: 2
     t.datetime "created_at"
     t.datetime "updated_at"
   end

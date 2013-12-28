@@ -6,5 +6,12 @@ describe TransferLineItem do
   it {should belong_to(:account)}
   it {should belong_to(:container)}
   it {should belong_to(:transfer)}
-
+  
+  describe "net weight validation" do
+    describe "when net weight equals difference between gross_weight and container.empty_weight" do
+      before do
+        
+      end
+    end
+  end
 end

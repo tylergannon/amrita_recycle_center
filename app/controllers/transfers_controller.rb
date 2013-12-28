@@ -21,9 +21,10 @@ class TransfersController < ApplicationController
 
   def create
     @transfer = Transfer.new(transfer_params)
-    
+    @transfer.transfer_line_items.build gross_weight: -10
     
     @transfer.save
+    
     respond_with(@transfer)
   end
 
@@ -43,6 +44,6 @@ class TransfersController < ApplicationController
     end
 
     def transfer_params
-      params.require(:transfer).permit(:transferred_at, :transfer_line_items)
+      params.require(:transfer).permit(:transferred_at, {transfer_line_items_attributes: [:account_id, :container_id, :transfer_id, :gross_weight]}, :from_location_id, :from_category_id)
     end
 end
