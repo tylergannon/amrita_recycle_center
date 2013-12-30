@@ -21,15 +21,18 @@ class TransfersController < ApplicationController
 
   def create
     @transfer = Transfer.new(transfer_params)
-    @transfer.transfer_line_items.build gross_weight: -10
+    # @transfer.transfer_line_items.build gross_weight: -10, container: Container.no_container
     
+    @transfer.balance!
     @transfer.save
     
     respond_with(@transfer)
   end
 
   def update
-    @transfer.update(transfer_params)
+    @transfer.attributes = transfer_params
+    @transfer.balance!
+    @transfer.save
     respond_with(@transfer)
   end
 

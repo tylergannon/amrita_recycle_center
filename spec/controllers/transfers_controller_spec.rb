@@ -30,6 +30,7 @@ describe TransfersController do
   
   let(:container) {create :container}
   
+  let(:debit_line_item) {build :transfer_line_item, gross_weight: -23.4, container: container, account: destination_account1}
   let(:transfer_line_item1) {build :transfer_line_item, gross_weight: 23.4, container: container, account: destination_account1}
   let(:transfer_line_item2) {build :transfer_line_item, gross_weight: 33.12, container: container, account: destination_account2}
   
@@ -38,8 +39,9 @@ describe TransfersController do
       "from_location_id"=>source_account.location.id.to_s, 
       "from_category_id"=>source_account.category.id.to_s, 
       "transfer_line_items_attributes"=> {
-        "0"=>transfer_line_item1.attributes,
-        "1"=>transfer_line_item2.attributes
+        "0"=>transfer_line_item1.attributes.except("net_weight"),
+        "1"=>transfer_line_item2.attributes.except("net_weight"),
+        "2"=> debit_line_item.attributes.except("net_weight")
       }
     }
   }
@@ -51,7 +53,7 @@ describe TransfersController do
 
   describe "GET index" do
     it "assigns all transfers as @transfers" do
-      transfer = Transfer.create! valid_attributes
+      transfer = create :balanced_transfer, valid_attributes
       get :index, {}, valid_session
       assigns(:transfers).should eq([transfer])
     end
@@ -59,7 +61,7 @@ describe TransfersController do
 
   describe "GET show" do
     it "assigns the requested transfer as @transfer" do
-      transfer = Transfer.create! valid_attributes
+      transfer = create :balanced_transfer, valid_attributes
       get :show, {:id => transfer.to_param}, valid_session
       assigns(:transfer).should eq(transfer)
     end
@@ -74,7 +76,7 @@ describe TransfersController do
 
   describe "GET edit" do
     it "assigns the requested transfer as @transfer" do
-      transfer = Transfer.create! valid_attributes
+      transfer = create :balanced_transfer, valid_attributes
       get :edit, {:id => transfer.to_param}, valid_session
       assigns(:transfer).should eq(transfer)
     end
@@ -110,14 +112,8 @@ describe TransfersController do
           it "should have a line item describing the source" do
             debit.should_not be_nil
           end
-          it "should have the correct total weight." do
-            debit.gross_weight.should == -(23.4 + 33.12)
-          end
-          it "should come from the correct account" do
-            debit.account.should == source_account
-          end
           it "should have no container" do
-            debit.container.should be_nil
+            debit.container.should == container
           end
         end
         
@@ -166,31 +162,31 @@ describe TransfersController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested transfer" do
-        transfer = Transfer.create! valid_attributes
+        transfer = create :balanced_transfer, valid_attributes
         # Assuming there are no other transfers in the database, this
         # specifies that the Transfer created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        Transfer.any_instance.should_receive(:update).with({ "transferred_at" => "2013-12-26 10:35:55" })
+        Transfer.any_instance.should_receive(:attributes=).with({ "transferred_at" => "2013-12-26 10:35:55" })
         put :update, {:id => transfer.to_param, :transfer => { "transferred_at" => "2013-12-26 10:35:55" }}, valid_session
       end
 
       it "assigns the requested transfer as @transfer" do
-        transfer = Transfer.create! valid_attributes
-        put :update, {:id => transfer.to_param, :transfer => valid_attributes}, valid_session
+        transfer = create :balanced_transfer, valid_attributes
+        put :update, {:id => transfer.to_param, :transfer => { "transferred_at" => "2013-12-26 10:35:55" }}, valid_session
         assigns(:transfer).should eq(transfer)
       end
 
       it "redirects to the transfer" do
-        transfer = Transfer.create! valid_attributes
-        put :update, {:id => transfer.to_param, :transfer => valid_attributes}, valid_session
+        transfer = create :balanced_transfer, valid_attributes
+        put :update, {:id => transfer.to_param, :transfer => { "transferred_at" => "2013-12-26 10:35:55" }}, valid_session
         response.should redirect_to(transfer)
       end
     end
 
     describe "with invalid params" do
       it "assigns the transfer as @transfer" do
-        transfer = Transfer.create! valid_attributes
+        transfer = create :balanced_transfer, valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Transfer.any_instance.stub(:save).and_return(false)
         put :update, {:id => transfer.to_param, :transfer => { "transferred_at" => "invalid value" }}, valid_session
@@ -198,7 +194,7 @@ describe TransfersController do
       end
 
       it "re-renders the 'edit' template" do
-        transfer = Transfer.create! valid_attributes
+        transfer = create :balanced_transfer, valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Transfer.any_instance.stub(:save).and_return(false)
         put :update, {:id => transfer.to_param, :transfer => { "transferred_at" => "invalid value" }}, valid_session
@@ -209,14 +205,14 @@ describe TransfersController do
 
   describe "DELETE destroy" do
     it "destroys the requested transfer" do
-      transfer = Transfer.create! valid_attributes
+      transfer = create :balanced_transfer, valid_attributes
       expect {
         delete :destroy, {:id => transfer.to_param}, valid_session
       }.to change(Transfer, :count).by(-1)
     end
 
     it "redirects to the transfers list" do
-      transfer = Transfer.create! valid_attributes
+      transfer = create :balanced_transfer, valid_attributes
       delete :destroy, {:id => transfer.to_param}, valid_session
       response.should redirect_to(transfers_url)
     end

@@ -3,7 +3,6 @@
 FactoryGirl.define do
   factory :container do
     name "MyString"
-    capacity "9.99"
-    empty_weight "9.99"
+    empty_weight 1
   end
 end

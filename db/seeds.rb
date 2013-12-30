@@ -34,6 +34,7 @@ end
 
 Container.delete_all
 Container.create([
+  {name: Container::NO_CONTAINER_NAME, capacity: 0, empty_weight: 0},
   {name: '120L Red Bin', capacity: 120, empty_weight: 3.5},
   {name: '120L Blue Bin', capacity: 120, empty_weight: 3.5},
   {name: '120L Orange Bin', capacity: 120, empty_weight: 3.5},

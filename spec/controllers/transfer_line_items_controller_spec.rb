@@ -23,7 +23,8 @@ describe TransferLineItemsController do
   # This should return the minimal set of attributes required to create a valid
   # TransferLineItem. As you add validations to TransferLineItem, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "credit" => "false" } }
+  let(:container) {create :container}
+  let(:valid_attributes) { { "credit" => "false", gross_weight: 13, container_id: container.id } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -32,7 +33,7 @@ describe TransferLineItemsController do
 
   describe "GET index" do
     it "assigns all transfer_line_items as @transfer_line_items" do
-      transfer_line_item = TransferLineItem.create! valid_attributes
+      transfer_line_item = create :transfer_line_item
       get :index, {}, valid_session
       assigns(:transfer_line_items).should eq([transfer_line_item])
     end
@@ -40,7 +41,7 @@ describe TransferLineItemsController do
 
   describe "GET show" do
     it "assigns the requested transfer_line_item as @transfer_line_item" do
-      transfer_line_item = TransferLineItem.create! valid_attributes
+      transfer_line_item = create :transfer_line_item
       get :show, {:id => transfer_line_item.to_param}, valid_session
       assigns(:transfer_line_item).should eq(transfer_line_item)
     end
@@ -55,7 +56,7 @@ describe TransferLineItemsController do
 
   describe "GET edit" do
     it "assigns the requested transfer_line_item as @transfer_line_item" do
-      transfer_line_item = TransferLineItem.create! valid_attributes
+      transfer_line_item = create :transfer_line_item
       get :edit, {:id => transfer_line_item.to_param}, valid_session
       assigns(:transfer_line_item).should eq(transfer_line_item)
     end
@@ -101,7 +102,7 @@ describe TransferLineItemsController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested transfer_line_item" do
-        transfer_line_item = TransferLineItem.create! valid_attributes
+        transfer_line_item = create :transfer_line_item
         # Assuming there are no other transfer_line_items in the database, this
         # specifies that the TransferLineItem created on the previous line
         # receives the :update_attributes message with whatever params are
@@ -111,13 +112,13 @@ describe TransferLineItemsController do
       end
 
       it "assigns the requested transfer_line_item as @transfer_line_item" do
-        transfer_line_item = TransferLineItem.create! valid_attributes
+        transfer_line_item = create :transfer_line_item
         put :update, {:id => transfer_line_item.to_param, :transfer_line_item => valid_attributes}, valid_session
         assigns(:transfer_line_item).should eq(transfer_line_item)
       end
 
       it "redirects to the transfer_line_item" do
-        transfer_line_item = TransferLineItem.create! valid_attributes
+        transfer_line_item = create :transfer_line_item
         put :update, {:id => transfer_line_item.to_param, :transfer_line_item => valid_attributes}, valid_session
         response.should redirect_to(transfer_line_item)
       end
@@ -125,7 +126,7 @@ describe TransferLineItemsController do
 
     describe "with invalid params" do
       it "assigns the transfer_line_item as @transfer_line_item" do
-        transfer_line_item = TransferLineItem.create! valid_attributes
+        transfer_line_item = create :transfer_line_item
         # Trigger the behavior that occurs when invalid params are submitted
         TransferLineItem.any_instance.stub(:save).and_return(false)
         put :update, {:id => transfer_line_item.to_param, :transfer_line_item => { "credit" => "invalid value" }}, valid_session
@@ -133,7 +134,7 @@ describe TransferLineItemsController do
       end
 
       it "re-renders the 'edit' template" do
-        transfer_line_item = TransferLineItem.create! valid_attributes
+        transfer_line_item = create :transfer_line_item
         # Trigger the behavior that occurs when invalid params are submitted
         TransferLineItem.any_instance.stub(:save).and_return(false)
         put :update, {:id => transfer_line_item.to_param, :transfer_line_item => { "credit" => "invalid value" }}, valid_session
@@ -144,14 +145,14 @@ describe TransferLineItemsController do
 
   describe "DELETE destroy" do
     it "destroys the requested transfer_line_item" do
-      transfer_line_item = TransferLineItem.create! valid_attributes
+      transfer_line_item = create :transfer_line_item
       expect {
         delete :destroy, {:id => transfer_line_item.to_param}, valid_session
       }.to change(TransferLineItem, :count).by(-1)
     end
 
     it "redirects to the transfer_line_items list" do
-      transfer_line_item = TransferLineItem.create! valid_attributes
+      transfer_line_item = create :transfer_line_item
       delete :destroy, {:id => transfer_line_item.to_param}, valid_session
       response.should redirect_to(transfer_line_items_url)
     end
