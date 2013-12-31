@@ -57,6 +57,35 @@ describe TransferLineItem do
       subject.should_receive :balance!
       subject.valid?
     end
+    
+    it "should set nil values of #credit to TRUE." do
+      subject.credit.should be_nil
+      subject.valid?
+      subject.credit.should === true
+    end
+  end
+  
+  describe "debit/credit validation" do
+    describe "when the line item is a credit" do
+      describe "when the gross weight is negative" do
+        subject {build :transfer_line_item, credit: true, gross_weight: -10}
+        it {should_not be_valid}
+      end
+      describe "when the gross weight is positive" do
+        subject {build :transfer_line_item, credit: true, gross_weight: 10}
+        it {should be_valid}
+      end
+    end
+    describe "when the line item is a debit" do
+      describe "when the gross weight is negative" do
+        subject {build :transfer_line_item, credit: false, gross_weight: -10}
+        it {should be_valid}
+      end
+      describe "when the gross weight is positive" do
+        subject {build :transfer_line_item, credit: false, gross_weight: 10}
+        it {should_not be_valid}
+      end
+    end
   end
   
   describe "net weight validation" do
@@ -79,7 +108,7 @@ describe TransferLineItem do
     describe "when gross weight is < 0 (i.e. for debits)" do
       let(:container) {create :container, empty_weight: 1}
       it "should validate that the net weight is zero minus the difference between the abs of gross weight and the container" do
-        line_item = build :transfer_line_item, container: container, gross_weight: -11, net_weight: -10
+        line_item = build :transfer_line_item, credit: false, container: container, gross_weight: -11, net_weight: -10
         line_item.should be_valid
       end
     end

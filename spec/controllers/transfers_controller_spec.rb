@@ -30,18 +30,20 @@ describe TransfersController do
   
   let(:container) {create :container}
   
-  let(:debit_line_item) {build :transfer_line_item, gross_weight: -23.4, container: container, account: destination_account1}
+  let(:debit_attributes) {{
+    account_id: source_account.id
+  }}
   let(:transfer_line_item1) {build :transfer_line_item, gross_weight: 23.4, container: container, account: destination_account1}
   let(:transfer_line_item2) {build :transfer_line_item, gross_weight: 33.12, container: container, account: destination_account2}
   
   let(:valid_attributes) {
     {"transferred_at"=>"2013-12-27 11:37:00 +0530", 
-      "from_location_id"=>source_account.location.id.to_s, 
-      "from_category_id"=>source_account.category.id.to_s, 
+      "debit_attributes" => {
+        "account_id" => source_account.id.to_s
+      },
       "transfer_line_items_attributes"=> {
         "0"=>transfer_line_item1.attributes.except("net_weight"),
-        "1"=>transfer_line_item2.attributes.except("net_weight"),
-        "2"=> debit_line_item.attributes.except("net_weight")
+        "1"=>transfer_line_item2.attributes.except("net_weight")
       }
     }
   }
@@ -112,8 +114,8 @@ describe TransfersController do
           it "should have a line item describing the source" do
             debit.should_not be_nil
           end
-          it "should have no container" do
-            debit.container.should == container
+          it "should have 'no' container" do
+            debit.container.should == Container.no_container
           end
         end
         
@@ -179,6 +181,7 @@ describe TransfersController do
 
       it "redirects to the transfer" do
         transfer = create :balanced_transfer, valid_attributes
+        transfer.reload
         put :update, {:id => transfer.to_param, :transfer => { "transferred_at" => "2013-12-26 10:35:55" }}, valid_session
         response.should redirect_to(transfer)
       end

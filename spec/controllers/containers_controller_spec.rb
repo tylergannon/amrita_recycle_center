@@ -34,7 +34,7 @@ describe ContainersController do
     it "assigns all containers as @containers" do
       container = Container.create! valid_attributes
       get :index, {}, valid_session
-      assigns(:containers).should eq([container])
+      assigns(:containers).should eq([Container.no_container, container])
     end
   end
 

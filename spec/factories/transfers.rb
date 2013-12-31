@@ -11,18 +11,11 @@ FactoryGirl.define do
     end
     
     after :build do |transfer, evaluator|
-      if transfer.transfer_line_items.empty?
+      if transfer.credits.empty?
         @container = evaluator.container || create(:container)
-      
-        transfer.transfer_line_items << build( :transfer_line_item, 
-                                        container: @container, 
-                                        gross_weight: -13, 
-                                        net_weight: (-13 + @container.empty_weight))
 
-        transfer.transfer_line_items << (build :transfer_line_item, 
-                                        container: @container, 
-                                        gross_weight: 13, 
-                                        net_weight: (13 - @container.empty_weight))
+        transfer.transfer_line_items.build  container: @container,
+                                            gross_weight: 13
 
       end
 

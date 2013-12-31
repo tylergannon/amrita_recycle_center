@@ -61,88 +61,88 @@ describe TransferLineItemsController do
       assigns(:transfer_line_item).should eq(transfer_line_item)
     end
   end
-
-  describe "POST create" do
-    describe "with valid params" do
-      it "creates a new TransferLineItem" do
-        expect {
-          post :create, {:transfer_line_item => valid_attributes}, valid_session
-        }.to change(TransferLineItem, :count).by(1)
-      end
-
-      it "assigns a newly created transfer_line_item as @transfer_line_item" do
-        post :create, {:transfer_line_item => valid_attributes}, valid_session
-        assigns(:transfer_line_item).should be_a(TransferLineItem)
-        assigns(:transfer_line_item).should be_persisted
-      end
-
-      it "redirects to the created transfer_line_item" do
-        post :create, {:transfer_line_item => valid_attributes}, valid_session
-        response.should redirect_to(TransferLineItem.last)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved transfer_line_item as @transfer_line_item" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        TransferLineItem.any_instance.stub(:save).and_return(false)
-        post :create, {:transfer_line_item => { "credit" => "invalid value" }}, valid_session
-        assigns(:transfer_line_item).should be_a_new(TransferLineItem)
-      end
-
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        TransferLineItem.any_instance.stub(:save).and_return(false)
-        post :create, {:transfer_line_item => { "credit" => "invalid value" }}, valid_session
-        response.should be_redirect
-      end
-    end
-  end
-
-  describe "PUT update" do
-    describe "with valid params" do
-      it "updates the requested transfer_line_item" do
-        transfer_line_item = create :transfer_line_item
-        # Assuming there are no other transfer_line_items in the database, this
-        # specifies that the TransferLineItem created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
-        TransferLineItem.any_instance.should_receive(:update).with({ "credit" => "false" })
-        put :update, {:id => transfer_line_item.to_param, :transfer_line_item => { "credit" => "false" }}, valid_session
-      end
-
-      it "assigns the requested transfer_line_item as @transfer_line_item" do
-        transfer_line_item = create :transfer_line_item
-        put :update, {:id => transfer_line_item.to_param, :transfer_line_item => valid_attributes}, valid_session
-        assigns(:transfer_line_item).should eq(transfer_line_item)
-      end
-
-      it "redirects to the transfer_line_item" do
-        transfer_line_item = create :transfer_line_item
-        put :update, {:id => transfer_line_item.to_param, :transfer_line_item => valid_attributes}, valid_session
-        response.should redirect_to(transfer_line_item)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns the transfer_line_item as @transfer_line_item" do
-        transfer_line_item = create :transfer_line_item
-        # Trigger the behavior that occurs when invalid params are submitted
-        TransferLineItem.any_instance.stub(:save).and_return(false)
-        put :update, {:id => transfer_line_item.to_param, :transfer_line_item => { "credit" => "invalid value" }}, valid_session
-        assigns(:transfer_line_item).should eq(transfer_line_item)
-      end
-
-      it "re-renders the 'edit' template" do
-        transfer_line_item = create :transfer_line_item
-        # Trigger the behavior that occurs when invalid params are submitted
-        TransferLineItem.any_instance.stub(:save).and_return(false)
-        put :update, {:id => transfer_line_item.to_param, :transfer_line_item => { "credit" => "invalid value" }}, valid_session
-        response.should be_redirect
-      end
-    end
-  end
-
+  # 
+  # describe "POST create" do
+  #   describe "with valid params" do
+  #     it "creates a new TransferLineItem" do
+  #       expect {
+  #         post :create, {:transfer_line_item => valid_attributes}, valid_session
+  #       }.to change(TransferLineItem, :count).by(1)
+  #     end
+  # 
+  #     it "assigns a newly created transfer_line_item as @transfer_line_item" do
+  #       post :create, {:transfer_line_item => valid_attributes}, valid_session
+  #       assigns(:transfer_line_item).should be_a(TransferLineItem)
+  #       assigns(:transfer_line_item).should be_persisted
+  #     end
+  # 
+  #     it "redirects to the created transfer_line_item" do
+  #       post :create, {:transfer_line_item => valid_attributes}, valid_session
+  #       response.should redirect_to(TransferLineItem.last)
+  #     end
+  #   end
+  # 
+  #   describe "with invalid params" do
+  #     it "assigns a newly created but unsaved transfer_line_item as @transfer_line_item" do
+  #       # Trigger the behavior that occurs when invalid params are submitted
+  #       TransferLineItem.any_instance.stub(:save).and_return(false)
+  #       post :create, {:transfer_line_item => { "credit" => "invalid value" }}, valid_session
+  #       assigns(:transfer_line_item).should be_a_new(TransferLineItem)
+  #     end
+  # 
+  #     it "re-renders the 'new' template" do
+  #       # Trigger the behavior that occurs when invalid params are submitted
+  #       TransferLineItem.any_instance.stub(:save).and_return(false)
+  #       post :create, {:transfer_line_item => { "credit" => "invalid value" }}, valid_session
+  #       response.should be_redirect
+  #     end
+  #   end
+  # end
+  # 
+  # describe "PUT update" do
+  #   describe "with valid params" do
+  #     it "updates the requested transfer_line_item" do
+  #       transfer_line_item = create :transfer_line_item
+  #       # Assuming there are no other transfer_line_items in the database, this
+  #       # specifies that the TransferLineItem created on the previous line
+  #       # receives the :update_attributes message with whatever params are
+  #       # submitted in the request.
+  #       TransferLineItem.any_instance.should_receive(:update).with({ "credit" => "false" })
+  #       put :update, {:id => transfer_line_item.to_param, :transfer_line_item => { "credit" => "false" }}, valid_session
+  #     end
+  # 
+  #     it "assigns the requested transfer_line_item as @transfer_line_item" do
+  #       transfer_line_item = create :transfer_line_item
+  #       put :update, {:id => transfer_line_item.to_param, :transfer_line_item => valid_attributes}, valid_session
+  #       assigns(:transfer_line_item).should eq(transfer_line_item)
+  #     end
+  # 
+  #     it "redirects to the transfer_line_item" do
+  #       transfer_line_item = create :transfer_line_item
+  #       put :update, {:id => transfer_line_item.to_param, :transfer_line_item => valid_attributes}, valid_session
+  #       response.should redirect_to(transfer_line_item)
+  #     end
+  #   end
+  # 
+  #   describe "with invalid params" do
+  #     it "assigns the transfer_line_item as @transfer_line_item" do
+  #       transfer_line_item = create :transfer_line_item
+  #       # Trigger the behavior that occurs when invalid params are submitted
+  #       TransferLineItem.any_instance.stub(:save).and_return(false)
+  #       put :update, {:id => transfer_line_item.to_param, :transfer_line_item => { "credit" => "invalid value" }}, valid_session
+  #       assigns(:transfer_line_item).should eq(transfer_line_item)
+  #     end
+  # 
+  #     it "re-renders the 'edit' template" do
+  #       transfer_line_item = create :transfer_line_item
+  #       # Trigger the behavior that occurs when invalid params are submitted
+  #       TransferLineItem.any_instance.stub(:save).and_return(false)
+  #       put :update, {:id => transfer_line_item.to_param, :transfer_line_item => { "credit" => "invalid value" }}, valid_session
+  #       response.should be_redirect
+  #     end
+  #   end
+  # end
+  # 
   describe "DELETE destroy" do
     it "destroys the requested transfer_line_item" do
       transfer_line_item = create :transfer_line_item
