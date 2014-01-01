@@ -12,7 +12,10 @@ class TransfersController < ApplicationController
 
   def new
     @transfer = Transfer.new
-    @transfer.transfer_line_items.build
+    @debit = @transfer.debit
+    
+    @credits = [@transfer.transfer_line_items.build(credit: true)]
+    # @transfer.transfer_line_items.build
     respond_with(@transfer)
   end
 

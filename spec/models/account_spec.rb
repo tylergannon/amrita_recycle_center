@@ -1,5 +1,9 @@
 require 'spec_helper'
 
 describe Account do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject {build :account}
+  it {should validate_presence_of(:location)}
+  it {should validate_presence_of(:category)}
+  
+
 end

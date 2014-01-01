@@ -26,6 +26,7 @@ Location.create([
   {name: "Downstream"}
 ])
 
+Account.delete_all
 Location.all.each do |location|
   Category.all.each do |category|
     Account.create location: location, category: category

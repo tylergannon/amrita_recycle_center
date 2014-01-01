@@ -70,9 +70,27 @@ describe TransfersController do
   end
 
   describe "GET new" do
-    it "assigns a new transfer as @transfer" do
+    before do
       get :new, {}, valid_session
+    end
+    it "assigns a new transfer as @transfer" do
       assigns(:transfer).should be_a_new(Transfer)
+    end
+    
+    it "assigns @debit" do
+      assigns(:debit).should === assigns(:transfer).debit
+    end
+    
+    it "assigns @credits" do
+      assigns(:credits).should === assigns(:transfer).credits
+    end
+    
+    describe "@credits assignment" do
+      subject {assigns(:credits)}
+      it {should have(1).items}
+      it "should be a credit" do
+        subject.first.should be_credit
+      end
     end
   end
 
