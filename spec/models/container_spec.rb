@@ -1,5 +1,6 @@
 require 'spec_helper'
 
 describe Container do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject {build :container}
+  it {should validate_presence_of(:name)}
 end
