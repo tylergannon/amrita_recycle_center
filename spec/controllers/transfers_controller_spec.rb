@@ -24,22 +24,23 @@ describe TransfersController do
   # Transfer. As you add validations to Transfer, be sure to
   # adjust the attributes here as well.
   
-  let(:source_account) {create :account}
-  let(:destination_account1) {create :account}
-  let(:destination_account2) {create :account}
+  let(:source_location) {create :location}
+  let(:source_category) {create :category}
+
+  let(:destination_location) {create :location}
+  let(:destination_category1) {create :category}
+  let(:destination_category2) {create :category}
   
   let(:container) {create :container}
   
-  let(:debit_attributes) {{
-    account_id: source_account.id
-  }}
-  let(:transfer_line_item1) {build :transfer_line_item, gross_weight: 23.4, container: container, account: destination_account1}
-  let(:transfer_line_item2) {build :transfer_line_item, gross_weight: 33.12, container: container, account: destination_account2}
+  let(:transfer_line_item1) {build :transfer_line_item, gross_weight: 23.4, container: container, location: destination_location, category: destination_category1}
+  let(:transfer_line_item2) {build :transfer_line_item, gross_weight: 33.12, container: container, location: destination_location, category: destination_category2}
   
   let(:valid_attributes) {
     {"transferred_at"=>"2013-12-27 11:37:00 +0530", 
       "debit_attributes" => {
-        "account_id" => source_account.id.to_s
+        "location_id" => source_location.id,
+        "category_id" => source_category.id
       },
       "transfer_line_items_attributes"=> {
         "0"=>transfer_line_item1.attributes.except("net_weight"),
@@ -150,8 +151,12 @@ describe TransfersController do
               credit1.container.should == transfer_line_item2.container
             end
             
-            it "should have the correct account" do
-              credit1.account.should == transfer_line_item2.account
+            it "should have the correct location" do
+              credit1.location.should == transfer_line_item2.location
+            end
+            
+            it "should have the correct category" do
+              credit1.category.should == transfer_line_item2.category
             end
             
             it "should have the correct gross weight" do

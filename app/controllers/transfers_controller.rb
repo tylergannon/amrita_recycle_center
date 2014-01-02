@@ -51,7 +51,7 @@ class TransfersController < ApplicationController
     end
 
     def transfer_params
-      params.require(:transfer).permit(:transferred_at, {transfer_line_items_attributes: [:account_id, :container_id, :transfer_id, :gross_weight]},
-              debit_attributes: [:account_id])
+      params.require(:transfer).permit(:transferred_at, {transfer_line_items_attributes: %i(location_id category_id container_id transfer_id gross_weight)},
+              debit_attributes: %i(location_id category_id))
     end
 end

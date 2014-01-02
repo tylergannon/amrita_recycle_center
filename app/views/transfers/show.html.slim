@@ -3,7 +3,7 @@ p#notice = notice
 h2 Transfer #{@transfer.id} // #{@transfer.transferred_at}
 
 
-h3 #{@transfer.net_weight} Kgs from #{@transfer.debit.account.name}
+h3 #{@transfer.net_weight} Kgs from #{@transfer.debit.category.name} - #{@transfer.debit.location.name}
 
 h4 #{@transfer.credits.size} Items:
 
@@ -13,10 +13,12 @@ table
     th Container
     th Net Weight
     th Transferred To:
+    th 
   
   - @transfer.credits.each do |credit|
     tr
       td= credit.gross_weight
       td= credit.container.display_name
       td= credit.net_weight
-      td= credit.account.name
+      td= credit.category.name
+      td= credit.location.name

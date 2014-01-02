@@ -1,5 +1,6 @@
 class TransferLineItem < ActiveRecord::Base
-  belongs_to :account
+  belongs_to :category
+  belongs_to :location
   belongs_to :container
   belongs_to :transfer
   

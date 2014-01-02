@@ -16,18 +16,6 @@ ActiveRecord::Schema.define(version: 20131226052142) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "accounts", force: true do |t|
-    t.integer  "category_id"
-    t.integer  "location_id"
-    t.string   "slug"
-    t.boolean  "incoming"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "accounts", ["category_id"], name: "index_accounts_on_category_id", using: :btree
-  add_index "accounts", ["location_id"], name: "index_accounts_on_location_id", using: :btree
-
   create_table "categories", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -50,7 +38,8 @@ ActiveRecord::Schema.define(version: 20131226052142) do
 
   create_table "transfer_line_items", force: true do |t|
     t.boolean  "credit"
-    t.integer  "account_id"
+    t.integer  "location_id"
+    t.integer  "category_id"
     t.integer  "container_id"
     t.integer  "transfer_id"
     t.decimal  "gross_weight", precision: 7, scale: 2
@@ -59,8 +48,9 @@ ActiveRecord::Schema.define(version: 20131226052142) do
     t.datetime "updated_at"
   end
 
-  add_index "transfer_line_items", ["account_id"], name: "index_transfer_line_items_on_account_id", using: :btree
+  add_index "transfer_line_items", ["category_id"], name: "index_transfer_line_items_on_category_id", using: :btree
   add_index "transfer_line_items", ["container_id"], name: "index_transfer_line_items_on_container_id", using: :btree
+  add_index "transfer_line_items", ["location_id"], name: "index_transfer_line_items_on_location_id", using: :btree
   add_index "transfer_line_items", ["transfer_id"], name: "index_transfer_line_items_on_transfer_id", using: :btree
 
   create_table "transfers", force: true do |t|

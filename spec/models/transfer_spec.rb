@@ -99,16 +99,17 @@ describe Transfer do
   end
 
   let(:source_account) {create :account}
-  let(:destination_account1) {create :account}
-  let(:destination_account2) {create :account}
+  let(:location) {create :location, name: 'Waste Station'}
+  let(:category1) {create :category, name: 'Hard Items'}
+  let(:category2) {create :category, name: 'Paper'}
   
   describe "#transfer_line_item_attributes" do
     let(:container) {create(:container)}
     let(:attributes) {
       { "0" => {
-          gross_weight: 100, container_id: container.id, account_id: destination_account1.id},
+          gross_weight: 100, container_id: container.id, location_id: location.id, category_id: category1.id},
         "1" => {
-          gross_weight: 1000, container_id: container.id, account_id: destination_account2.id}
+          gross_weight: 1000, container_id: container.id, location_id: location.id, category_id: category2.id}
     }}
     subject {build :transfer}
     before do
