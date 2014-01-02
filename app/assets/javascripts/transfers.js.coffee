@@ -7,7 +7,10 @@ $ ->
   
   $(document).on 'click', '#add_line_item', (e) ->
     e.preventDefault()
-    $new_element = $('#line_items .panel').last().clone()
+    $line_items = $('#line_items .panel')
+    $new_element = $line_items.last().clone()
+    _.each $new_element.find('input textarea select'), ($input) ->
+      
     $new_element.find('input[type=text]').val('')
     $('#line_items').append $new_element
     return false

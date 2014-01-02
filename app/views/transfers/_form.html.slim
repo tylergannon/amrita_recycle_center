@@ -15,10 +15,6 @@
     = ff.collection_select :container_id, Container.all, :id, :name
     = ff.label :account
     = ff.collection_select :account_id, Account.all, :id, :name
-  
-  h2 To:
-  = f.label :from_location_id, "Location"
-  = f.collection_select :from_location_id, Location.all, :id, :name
 
   h2 Line Items
   button id="add_line_item" Add Item

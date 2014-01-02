@@ -2,7 +2,11 @@ require 'spec_helper'
 
 describe "transfers/show" do
   before(:each) do
-    @transfer = assign(:transfer, stub_model(Transfer))
+    @transfer = assign(:transfer, create(:balanced_transfer))
+    # @debit = @transfer.debit
+    # 
+    # @credits = [@transfer.transfer_line_items.build(credit: true)]
+    # puts @transfer.transfer_line_items.inspect
   end
 
   it "renders attributes in <p>" do
