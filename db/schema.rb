@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20131226052142) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
+    t.string   "slug"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -26,12 +27,14 @@ ActiveRecord::Schema.define(version: 20131226052142) do
     t.string   "name"
     t.decimal  "capacity",     precision: 7, scale: 2
     t.decimal  "empty_weight", precision: 7, scale: 2
+    t.string   "slug"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "locations", force: true do |t|
     t.string   "name"
+    t.string   "slug"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

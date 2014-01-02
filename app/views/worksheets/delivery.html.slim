@@ -1,4 +1,6 @@
 h1 Delivery
 
 ul
-  li= link_to "Paper", new_transfer_path(from_category: "Paper", from_location: "Waste Station")
+  li= link_to "Paper", new_transfer_path(from: {category_id: 'paper', location_id: 'waste_station'})
+  li= link_to "Hard Items", new_transfer_path(from: {category_id: 'hard_items', location_id: 'waste_station'})
+  li= link_to "Soft Plastic", new_transfer_path(from: {category_id: 'soft_plastic', location_id: 'waste_station'})

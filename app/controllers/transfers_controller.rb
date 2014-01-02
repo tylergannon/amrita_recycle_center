@@ -13,6 +13,8 @@ class TransfersController < ApplicationController
   def new
     @transfer = Transfer.new
     @debit = @transfer.debit
+    @debit.category = Category.friendly.find(from_params[:category_id]) if from_params[:category_id]
+    @debit.location = Location.friendly.find(from_params[:location_id]) if from_params[:location_id]
     
     @credits = [@transfer.transfer_line_items.build(credit: true)]
     # @transfer.transfer_line_items.build
@@ -43,6 +45,14 @@ class TransfersController < ApplicationController
   def destroy
     @transfer.destroy
     respond_with(@transfer)
+  end
+  
+  def from_params
+    if params[:from]
+      params.require(:from).permit %i(location_id category_id)
+    else
+      {}
+    end
   end
 
   private

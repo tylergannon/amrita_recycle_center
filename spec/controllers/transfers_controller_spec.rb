@@ -70,10 +70,41 @@ describe TransfersController do
     end
   end
 
+  describe "strong parameters" do
+    it "should recognize these params" do
+      create :category, name: 'Paper'
+      create :location, name: 'Waste Station'
+      params = {category_id: 'paper', location_id: 'waste_station'}
+      get :new, {from: params}
+      subject.from_params.should == params.stringify_keys
+    end
+    it "should not mind empty params" do
+      params = {category_id: 'paper', location_id: 'waste_station'}
+      get :new 
+      subject.from_params.should == {}
+    end
+    describe "#new should set the params to the :transfer object." do
+      let(:category) {create :category, name: 'Paper'}
+      let(:location) {create :location, name: 'Waste Station'}
+      let(:params)   {{category_id: category.slug, location_id: location.slug}}
+      before do
+        get :new, {from: params}
+      end
+      subject {assigns(:transfer).debit}
+      it "should set the category" do
+        subject.category.should == category
+      end
+      it "should set the location" do
+        subject.location.should == location
+      end
+    end
+  end
+
   describe "GET new" do
     before do
       get :new, {}, valid_session
     end
+    
     it "assigns a new transfer as @transfer" do
       assigns(:transfer).should be_a_new(Transfer)
     end
