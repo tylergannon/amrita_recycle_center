@@ -5,6 +5,6 @@ class Location < ActiveRecord::Base
   friendly_id :friendly_name, use: :slugged
   
   def friendly_name
-    name.downcase.gsub(/[ -]/, '_')
+    name.downcase.gsub(/[ -]/, '_') if name
   end
 end

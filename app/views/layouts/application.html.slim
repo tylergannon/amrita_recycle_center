@@ -26,6 +26,8 @@ html lang="en"
       section.top-bar-section
         ul.right
           li.divider
+          li= link_to "Delivery Worksheet", worksheet_path('delivery')
+          li.divider
           li= link_to "New Transfer", new_transfer_path
           li.divider
           li= link_to "Transfers", transfers_path

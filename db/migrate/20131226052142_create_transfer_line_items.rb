@@ -8,6 +8,7 @@ class CreateTransferLineItems < ActiveRecord::Migration
       t.references :transfer, index: true
       t.decimal :gross_weight, precision: 7, scale: 2
       t.decimal :net_weight, precision: 7, scale: 2
+      t.string :notes
 
       t.timestamps
     end

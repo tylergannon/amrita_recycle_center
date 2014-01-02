@@ -1,6 +1,11 @@
 h1 Delivery
 
 ul
-  li= link_to "Paper", new_transfer_path(from: {category_id: 'paper', location_id: 'waste_station'})
-  li= link_to "Hard Items", new_transfer_path(from: {category_id: 'hard_items', location_id: 'waste_station'})
-  li= link_to "Soft Plastic", new_transfer_path(from: {category_id: 'soft_plastic', location_id: 'waste_station'})
+  li= link_to "Hard Items", pickup_link_path('hard_items', '120l_red_bin')
+  li= link_to "Soft Plastic", pickup_link_path('soft_plastic', '120l_orange_bin')
+  li= link_to "Paper", pickup_link_path('paper', '120l_blue_bin')
+  li= link_to "Cardboard", pickup_link_path('cardboard', '120l_blue_bin')
+  li= link_to "Sanitary", pickup_link_path('sanitary', '100l_pink_bin')
+  li= link_to "Cloth", pickup_link_path('cloth', '120l_blue_bin')
+  
+

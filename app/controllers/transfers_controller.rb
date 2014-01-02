@@ -13,11 +13,19 @@ class TransfersController < ApplicationController
   def new
     @transfer = Transfer.new
     @debit = @transfer.debit
-    @debit.category = Category.friendly.find(from_params[:category_id]) if from_params[:category_id]
-    @debit.location = Location.friendly.find(from_params[:location_id]) if from_params[:location_id]
+    @debit.set_category_by_id from_params[:category_id]
+    @debit.set_location_by_id from_params[:location_id]
     
-    @credits = [@transfer.transfer_line_items.build(credit: true)]
-    # @transfer.transfer_line_items.build
+    if params[:worksheet]
+      @worksheet = params[:worksheet]
+    end
+    
+    credit = @transfer.transfer_line_items.build(credit: true)
+    credit.set_container_by_id to_params[:container_id]
+    credit.set_location_by_id to_params[:location_id]
+    credit.set_category_by_id to_params[:category_id]
+    @credits = [credit]
+
     respond_with(@transfer)
   end
 
@@ -32,7 +40,15 @@ class TransfersController < ApplicationController
     @transfer.balance!
     @transfer.save
     
-    respond_with(@transfer)
+    respond_with(@transfer) do |format|
+      format.html {
+        if params[:worksheet]
+          redirect_to worksheet_path(params[:worksheet]) 
+        else
+          redirect_to @transfer
+        end
+      }
+    end
   end
 
   def update
@@ -50,6 +66,14 @@ class TransfersController < ApplicationController
   def from_params
     if params[:from]
       params.require(:from).permit %i(location_id category_id)
+    else
+      {}
+    end
+  end
+  
+  def to_params
+    if params[:to]
+      params.require(:to).permit %i(location_id container_id category_id)
     else
       {}
     end

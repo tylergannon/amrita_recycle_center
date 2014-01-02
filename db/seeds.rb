@@ -4,6 +4,8 @@ Category.create([
   {name: "Hard Items"},
   {name: "Soft Plastic"},
   {name: "Paper"},
+  {name: "Cardboard"},
+  {name: "Cloth"},
   {name: "Sanitary"}
 ])
 

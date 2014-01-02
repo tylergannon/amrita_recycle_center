@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20131226052142) do
     t.integer  "transfer_id"
     t.decimal  "gross_weight", precision: 7, scale: 2
     t.decimal  "net_weight",   precision: 7, scale: 2
+    t.string   "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

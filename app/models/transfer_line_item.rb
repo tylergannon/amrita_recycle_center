@@ -13,6 +13,18 @@ class TransferLineItem < ActiveRecord::Base
   validate :weight_should_only_be_negative_if_and_only_if_this_is_a_debit
   validate :net_weight_should_be_the_difference_between_gross_weight_and_container_weight
   
+  def set_container_by_id(id)
+    self.container = Container.friendly.find(id) if id
+  end
+  
+  def set_location_by_id(id)
+    self.location = Location.friendly.find(id) if id
+  end
+  
+  def set_category_by_id(id)
+    self.category = Category.friendly.find(id) if id
+  end
+  
   def weight_should_only_be_negative_if_and_only_if_this_is_a_debit
     return unless gross_weight
     if gross_weight > 0 && debit?

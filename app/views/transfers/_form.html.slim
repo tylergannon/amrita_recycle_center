@@ -1,4 +1,8 @@
+.coolio
 = form_for @transfer do |f|
+
+  = hidden_field_tag 'worksheet', @worksheet if @worksheet
+
   - if @transfer.errors.any?
     #error_explanation
       h2 = "#{pluralize(@transfer.errors.count, "error")} prohibited this transfer from being saved:"
@@ -25,11 +29,14 @@
       .panel.line_item
         = ff.label :gross_weight
         = ff.text_field :gross_weight
-        = ff.label :container
-        = ff.collection_select :container_id, Container.all, :id, :name
         = ff.label :category
         = ff.collection_select :category_id, Category.all, :id, :name
+        = ff.label :container
+        = ff.collection_select :container_id, Container.all, :id, :name
         = ff.label :location
         = ff.collection_select :location_id, Location.all, :id, :name
+        = ff.label :notes
+        = ff.text_field :notes
   
   .actions = f.submit 'Save'
+

@@ -83,6 +83,7 @@ describe TransfersController do
       get :new 
       subject.from_params.should == {}
     end
+    
     describe "#new should set the params to the :transfer object." do
       let(:category) {create :category, name: 'Paper'}
       let(:location) {create :location, name: 'Waste Station'}
@@ -98,6 +99,47 @@ describe TransfersController do
         subject.location.should == location
       end
     end
+    
+    describe "TO params" do
+      it "should recognize these params" do
+        create :container, name: '120L Red Bin'
+        create :location, name: 'Waste Station'
+        create :category, name: 'Hard Items'
+
+        params = {container_id: '120l_red_bin', location_id: 'waste_station', category_id: 'hard_items'}
+        get :new, {to: params}
+        
+        subject.to_params.should == params.stringify_keys
+      end
+      it "should not mind empty params" do
+        get :new 
+        subject.to_params.should == {}
+      end
+
+      describe "#new should set the params to the :transfer object." do
+        let(:container) {create :container, name: '120L Red Bin'}
+        let(:location) {create :location, name: 'Waste Station'}
+        let(:category) {create :category, name: 'Hard Items'}
+        
+        let(:params)   {{container_id: container.slug, location_id: location.slug, category_id: category.slug}}
+        before do
+          get :new, {to: params}
+        end
+        subject {assigns(:credits).first}
+        it "should set the container" do
+          subject.container.should == container
+        end
+        it "should set the location" do
+          subject.location.should == location
+        end
+        it "should set the category" do
+          subject.category.should == category
+        end
+      end
+      
+    end
+    
+    pending "There should be a spec for params[:worksheet]"
   end
 
   describe "GET new" do
