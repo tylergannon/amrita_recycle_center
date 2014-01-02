@@ -2,9 +2,41 @@ require 'spec_helper'
 
 describe Transfer do
   subject {build :transfer}
-  
+
   it {should have_many(:transfer_line_items)}
   it {should validate_presence_of(:transferred_at)}
+  
+  describe "#net_weight" do
+    subject {build :transfer}
+    describe "when there are no debit line items" do
+      it "should be zero" do
+        subject.balance!
+        expect(subject.net_weight).to equal(0)
+      end
+    end
+    describe "when there are debit line items" do
+      before do
+        subject.transfer_line_items += [
+          build(:transfer_line_item, container: Container.no_container, gross_weight: 100),
+          build(:transfer_line_item, container: Container.no_container, gross_weight: 10),
+          build(:transfer_line_item, container: Container.no_container, gross_weight: 1) ]
+        subject.balance!
+      end
+
+      it "should be the sum" do
+        subject.net_weight.should == 111
+      end
+    end
+    
+    describe "when the transfer is not valid" do
+      before do
+        subject.stub(:valid?).and_return false
+      end
+      it "should raise an error" do
+        ->{subject.net_weight}.should raise_error
+      end
+    end
+  end
   
   
   describe "#transfer_line_items.credit" do
@@ -38,7 +70,7 @@ describe Transfer do
     end
     
     it "should be the sum of all the net weights of the line items" do
-      transfer.balance.should == -7
+      transfer.balance.should == -8
     end
   end
     

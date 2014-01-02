@@ -1,12 +1,22 @@
 p#notice = notice
 
-p
-  strong Transferred at:
-  = @transfer.transferred_at
-  - @transfer.transfer_line_items.each do |transfer_line_item|
-    .panel
-      = transfer_line_item.gross_weight
+h2 Transfer #{@transfer.id} // #{@transfer.transferred_at}
 
-= link_to 'Edit', edit_transfer_path(@transfer)
-'|
-= link_to 'Back', transfers_path
+
+h3 #{@transfer.net_weight} Kgs from #{@transfer.debit.account.name}
+
+h4 #{@transfer.credits.size} Items:
+
+table
+  tr
+    th Gross Weight
+    th Container
+    th Net Weight
+    th Transferred To:
+  
+  - @transfer.credits.each do |credit|
+    tr
+      td= credit.gross_weight
+      td= credit.container.display_name
+      td= credit.net_weight
+      td= credit.account.name

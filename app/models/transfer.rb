@@ -21,7 +21,7 @@ class Transfer < ActiveRecord::Base
   after_initialize do
     self.transferred_at ||= Time.zone.now
     if new_record?
-      @debit = transfer_line_items.build(credit: false, container: Container.no_container)
+      @debit = transfer_line_items.build(credit: false, container: Container.no_container, gross_weight: 0)
     end
   end
   
@@ -42,6 +42,16 @@ class Transfer < ActiveRecord::Base
   def credits
     transfer_line_items.select{|t| t.credit}
   end  
+  
+  def net_weight
+    raise "Can't retrieve net weight of an invalid transfer" unless valid?
+    if credits.empty?
+      0
+    else
+      balance!
+      credits.map(&:net_weight).inject(:+)
+    end
+  end
   
   def balance
     transfer_line_items.each &:balance!
