@@ -11,6 +11,8 @@ AmritaRecycleCenter::Application.routes.draw do
 
   resources :categories
   
+  resources :worksheets
+  
   root to: 'transfers#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
