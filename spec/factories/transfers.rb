@@ -8,17 +8,21 @@ FactoryGirl.define do
   factory :balanced_transfer, parent: :transfer do
     ignore do
       container nil
-      account nil
+      location nil
+      category nil
     end
     
     after :build do |transfer, evaluator|
-      transfer.debit.account = evaluator.account || create(:account)
+      transfer.debit.category = evaluator.category || create(:category)
+      transfer.debit.location = evaluator.category || create(:location)
+      
       if transfer.credits.empty?
         @container = evaluator.container || create(:container)
 
         transfer.transfer_line_items.build  container: @container,
                                             gross_weight: 13,
-                                            account: create(:account)
+                                            category: create(:category),
+                                            location: create(:location)
 
       end
 

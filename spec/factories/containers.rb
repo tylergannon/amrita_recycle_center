@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :container do
-    name "MyString"
+    name
     empty_weight 1
   end
 end

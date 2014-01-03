@@ -36,7 +36,7 @@ class LocationsController < ApplicationController
 
   private
     def set_location
-      @location = Location.find(params[:id])
+      @location = Location.friendly.find(params[:id])
     end
 
     def location_params

@@ -4,6 +4,7 @@ class CreateContainers < ActiveRecord::Migration
       t.string :name
       t.decimal :capacity, precision: 7, scale: 2
       t.decimal :empty_weight, precision: 7, scale: 2
+      t.string :slug, index: true, unique: true
 
       t.timestamps
     end

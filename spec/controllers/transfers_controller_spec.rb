@@ -24,22 +24,23 @@ describe TransfersController do
   # Transfer. As you add validations to Transfer, be sure to
   # adjust the attributes here as well.
   
-  let(:source_account) {create :account}
-  let(:destination_account1) {create :account}
-  let(:destination_account2) {create :account}
+  let(:source_location) {create :location}
+  let(:source_category) {create :category}
+
+  let(:destination_location) {create :location}
+  let(:destination_category1) {create :category}
+  let(:destination_category2) {create :category}
   
   let(:container) {create :container}
   
-  let(:debit_attributes) {{
-    account_id: source_account.id
-  }}
-  let(:transfer_line_item1) {build :transfer_line_item, gross_weight: 23.4, container: container, account: destination_account1}
-  let(:transfer_line_item2) {build :transfer_line_item, gross_weight: 33.12, container: container, account: destination_account2}
+  let(:transfer_line_item1) {build :transfer_line_item, gross_weight: 23.4, container: container, location: destination_location, category: destination_category1}
+  let(:transfer_line_item2) {build :transfer_line_item, gross_weight: 33.12, container: container, location: destination_location, category: destination_category2}
   
   let(:valid_attributes) {
     {"transferred_at"=>"2013-12-27 11:37:00 +0530", 
       "debit_attributes" => {
-        "account_id" => source_account.id.to_s
+        "location_id" => source_location.id,
+        "category_id" => source_category.id
       },
       "transfer_line_items_attributes"=> {
         "0"=>transfer_line_item1.attributes.except("net_weight"),
@@ -69,10 +70,83 @@ describe TransfersController do
     end
   end
 
+  describe "strong parameters" do
+    it "should recognize these params" do
+      create :category, name: 'Paper'
+      create :location, name: 'Waste Station'
+      params = {category_id: 'paper', location_id: 'waste_station'}
+      get :new, {from: params}
+      subject.from_params.should == params.stringify_keys
+    end
+    it "should not mind empty params" do
+      params = {category_id: 'paper', location_id: 'waste_station'}
+      get :new 
+      subject.from_params.should == {}
+    end
+    
+    describe "#new should set the params to the :transfer object." do
+      let(:category) {create :category, name: 'Paper'}
+      let(:location) {create :location, name: 'Waste Station'}
+      let(:params)   {{category_id: category.slug, location_id: location.slug}}
+      before do
+        get :new, {from: params}
+      end
+      subject {assigns(:transfer).debit}
+      it "should set the category" do
+        subject.category.should == category
+      end
+      it "should set the location" do
+        subject.location.should == location
+      end
+    end
+    
+    describe "TO params" do
+      it "should recognize these params" do
+        create :container, name: '120L Red Bin'
+        create :location, name: 'Waste Station'
+        create :category, name: 'Hard Items'
+
+        params = {container_id: '120l_red_bin', location_id: 'waste_station', category_id: 'hard_items'}
+        get :new, {to: params}
+        
+        subject.to_params.should == params.stringify_keys
+      end
+      it "should not mind empty params" do
+        get :new 
+        subject.to_params.should == {}
+      end
+
+      describe "#new should set the params to the :transfer object." do
+        let(:container) {create :container, name: '120L Red Bin'}
+        let(:location) {create :location, name: 'Waste Station'}
+        let(:category) {create :category, name: 'Hard Items'}
+        
+        let(:params)   {{container_id: container.slug, location_id: location.slug, category_id: category.slug}}
+        before do
+          get :new, {to: params}
+        end
+        subject {assigns(:credits).first}
+        it "should set the container" do
+          subject.container.should == container
+        end
+        it "should set the location" do
+          subject.location.should == location
+        end
+        it "should set the category" do
+          subject.category.should == category
+        end
+      end
+      
+    end
+    
+    pending "There should be a spec for params[:worksheet]"
+  end
+
   describe "GET new" do
     before do
       get :new, {}, valid_session
     end
+    
     it "assigns a new transfer as @transfer" do
       assigns(:transfer).should be_a_new(Transfer)
     end
@@ -150,8 +224,12 @@ describe TransfersController do
               credit1.container.should == transfer_line_item2.container
             end
             
-            it "should have the correct account" do
-              credit1.account.should == transfer_line_item2.account
+            it "should have the correct location" do
+              credit1.location.should == transfer_line_item2.location
+            end
+            
+            it "should have the correct category" do
+              credit1.category.should == transfer_line_item2.category
             end
             
             it "should have the correct gross weight" do
