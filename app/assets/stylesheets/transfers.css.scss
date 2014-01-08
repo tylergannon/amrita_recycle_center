@@ -1,3 +1,21 @@
 // Place all the styles related to the transfers controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "foundation/components/global";
+@import "foundation/components/panels";
+
+.line-item-panel {
+  @include panel(
+    // Sets the panel background color. Default: $panel-pg
+//    $bg:orange,
+    // Sets the panel padding amount. Default: $panel-padding
+    $padding:6px,
+    // Sets the font color based on the darkness of the bg & resets header line-heights for panels. Default: $panel-header-adjust
+    $adjust:true
+  );
+}
+
+.row.item-notes {
+  display: none;
+}

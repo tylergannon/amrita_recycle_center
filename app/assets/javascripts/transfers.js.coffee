@@ -21,35 +21,46 @@ inputId = ($element, index) ->
   "transfer_transfer_line_items_attributes_" + index.toString() + "_" + input_name
 
 addLineItem = () ->
-  $line_items = $('#line_items .panel')
-  $new_element = $line_items.last().clone()
+  $line_items = $('#line_items .line_item')
+  $last_line_item = $line_items.last()
+  $new_element = window.transferred_item.clone()
   new_element_index = $line_items.size()
   
   $new_element.find('label').each (index) ->
     $this = $(this)
     $this.attr 'for', labelFor($this, new_element_index)
   
-  $new_element.find('input,textarea').each (index) ->
-    $(this).val('')
+  _.each ['category', 'container', 'location'], (name) ->
+    $new_element.find('select.' + name).val $last_line_item.find('select.' + name).val()
 
-  $new_element.find('input,textarea,select').each (index) ->
+  $new_element.find('input[name],textarea[name],select[name]').each (index) ->
     $this = $(this)
     $this.attr 'name', inputName($this, new_element_index)
     $this.attr 'id', inputId($this, new_element_index)
 
   $('#line_items').append $new_element
-  $('#line_items .panel').last().find('input[type=text]').first().focus()
+  $('#line_items .line_item').last().find('select').chosen()
+  $('#line_items .line_item').last().find('input[type=text]').first().focus()
 
 
 $ ->
+  window.transferred_item = $('#line_items .line_item').first().clone()
+  $('#line_items .line_item select').chosen()
   $('.datetime_field').fdatetimepicker()
-  $('#line_items .panel input[type=text]').first().focus()
+  $('#line_items .line_item input[type=text]').first().focus()
 
   $(document).on 'click', '#add_line_item', (e) ->
     e.preventDefault()
     addLineItem()
     return false
     
+  $(document).on 'click', '.show_notes', (event) ->
+    event.preventDefault()
+    $(this).parents('.line_item').find('.row.item-notes').show()
+  $(document).on 'click', '.remove_item', (event) ->
+    event.preventDefault()
+    $(this).parents('.line_item').remove()
+
   $(document).on 'keydown', 'form#new_transfer input', (event) ->
     if event.which == 187
       event.preventDefault()

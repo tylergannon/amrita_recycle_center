@@ -11,6 +11,8 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'friendly_id'
+gem 'chosen-rails'
+gem 'foundation-icons-sass-rails'
 
 gem 'devise'
 gem 'cancan'
