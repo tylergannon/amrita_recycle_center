@@ -1,0 +1,7 @@
+tr
+  td = time_entry.start_time.strftime('%Y-%m-%d')
+  td = time_entry.length / 3600
+  td = time_entry.task.name
+  td = link_to 'Show', time_entry
+  td = link_to 'Edit', edit_time_entry_path(time_entry)
+  td = link_to 'Remove', time_entry, data: {:confirm => 'Are you sure?'}, :method => :delete

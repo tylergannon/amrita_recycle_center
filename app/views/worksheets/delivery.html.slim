@@ -1,11 +1,26 @@
 h1 Delivery
 
-ul
-  li= link_to "Hard Items", pickup_link_path('hard_items', '120l_red_bin')
-  li= link_to "Soft Plastic", pickup_link_path('soft_plastic', '120l_orange_bin')
-  li= link_to "Paper", pickup_link_path('paper', '120l_blue_bin')
-  li= link_to "Cardboard", pickup_link_path('cardboard', '120l_blue_bin')
-  li= link_to "Sanitary", pickup_link_path('sanitary', '100l_pink_bin')
-  li= link_to "Cloth", pickup_link_path('cloth', '120l_blue_bin')
+ul.side-nav
+  li= link_to "Hard Items", pickup_link_path(:hard_items, '120l_red_bin')
+  li= link_to "Soft Plastic", pickup_link_path(:soft_plastic, '120l_orange_bin')
+  li= link_to "Paper", pickup_link_path(:paper, '120l_blue_bin')
+  li= link_to "Cardboard", pickup_link_path(:cardboard, '120l_blue_bin')
+  li= link_to "Sanitary", pickup_link_path(:sanitary, '100l_pink_bin')
+  li= link_to "Cloth", pickup_link_path(:cloth, '120l_blue_bin')
+
+
+h1 From Compost
+
   
+h1 Pre-Sort
+
+ul
+  li= link_to "Hard Items", presort_link_path(:hard_items, '120l_red_bin', :hard_items_table)
+  li= link_to "Paper", presort_link_path(:paper, '120l_blue_bin', :paper_table)
+  li= link_to "Soft Plastic", presort_link_path(:soft_plastic, '120l_orange_bin', :soft_plastic_processing)
+  li= link_to "PET", presort_link_path(:hard_items, '120l_red_bin', :pet_crushing)
+  
+  li= link_to "Cardboard", presort_link_path(:cardboard, '120l_blue_bin', :cardboard_processing)
+  li= link_to "Sanitary", presort_link_path(:sanitary, '100l_pink_bin', :burnables_processing)
+  li= link_to "Cloth", presort_link_path(:cloth, '120l_blue_bin', :burnables_processing)
 

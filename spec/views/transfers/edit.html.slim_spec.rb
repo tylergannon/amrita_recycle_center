@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "transfers/edit" do
   before(:each) do
-    @transfer = assign(:transfer, stub_model(Transfer))
+    @transfer = assign(:transfer, create(:balanced_transfer))
   end
 
   it "renders the edit transfer form" do

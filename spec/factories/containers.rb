@@ -4,5 +4,6 @@ FactoryGirl.define do
   factory :container do
     name
     empty_weight 1
+    capacity 1
   end
 end

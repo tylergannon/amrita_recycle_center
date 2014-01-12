@@ -60,7 +60,7 @@ Spork.prefork do
     config.infer_base_class_for_anonymous_controllers = false
     
     config.before(:each) do
-      create :container, name: Container::NO_CONTAINER_NAME, empty_weight: 0
+      create :container, name: Container::NO_CONTAINER_NAME, empty_weight: 0, capacity: 0
     end
 
     # Run specs in random order to surface order dependencies. If you find an

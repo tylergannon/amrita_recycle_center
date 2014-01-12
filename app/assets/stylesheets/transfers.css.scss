@@ -14,8 +14,16 @@
     // Sets the font color based on the darkness of the bg & resets header line-heights for panels. Default: $panel-header-adjust
     $adjust:true
   );
+  
+  input[type=text] {
+    height: 24px;
+  }
 }
 
 .row.item-notes {
   display: none;
+}
+
+a.show_notes {
+  margin-left: 6px;
 }

@@ -1,0 +1,18 @@
+h1 Track Time
+
+= render 'form'
+
+table#time_entries
+  tr
+    th Date
+    th Hours
+    th Task
+    th
+    th
+    th
+
+  = render @time_entries
+
+br
+
+= link_to 'New Time entry', new_time_entry_path

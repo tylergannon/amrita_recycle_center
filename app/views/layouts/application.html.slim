@@ -13,9 +13,8 @@ html lang="en"
     /! <meta http-equiv="X-UA-Compatible" content="IE=7" />
     /! Set the viewport width to device width for mobile
     meta content="width=(device-width,)initial-scale=1.0" name="viewport"
-    title= content_for?(:title) ? yield(:title) : "Untitled"
+    title= content_for?(:title) ? yield(:title) : "Amrita Recycle Center"
     = stylesheet_link_tag    "application"
-    = javascript_include_tag "vendor/custom.modernizr"
     = csrf_meta_tags
   body
     nav.top-bar
@@ -28,18 +27,26 @@ html lang="en"
           li.divider
           li= link_to "Delivery Worksheet", worksheet_path('delivery')
           li.divider
-          li= link_to "New Transfer", new_transfer_path
+          li= link_to "New Blank Transfer", new_transfer_path
           li.divider
           li= link_to "Transfers", transfers_path
           li.divider
-          li= link_to "Price List"
+          li= link_to "Time Tracking", time_entries_path
           li.divider
-          li= link_to "Contact Us"
-          li.divider
-          li= link_to "Cart"
+          li
+            a href="#" data-dropdown="data_settings_list"
+              i.fi-widget
+              = "Settings"
+        ul#data_settings_list class="f-dropdown" data-dropdown-content="true"
+          li= link_to "Task Types", tasks_path
+          li= link_to "Waste Containers", containers_path
+          li= link_to "Waste Categories", categories_path
+          li= link_to "Locations", locations_path
     .row
       .small-9.columns= yield
       .small-3.columns
         h2.subheader Help
         | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     = javascript_include_tag "application"
+    = javascript_include_tag "vendor/custom.modernizr"
+    

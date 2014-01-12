@@ -1,0 +1,25 @@
+= form_for @time_entry, data: {remote: true} do |f|
+  .panel.time_entry
+    .row
+      .small-3.columns
+        .row.collapse
+          .small-3.columns
+            span.prefix
+              i.fi-calendar
+          .small-9.columns= f.text_field :reporting_date
+      .small-3.columns
+        .row.collapse
+          .small-3.columns
+            span.prefix
+              i.fi-clock
+          .small-9.columns= f.text_field :start_time, class: 'task_time'
+      .small-3.columns
+        .row.collapse
+          .small-3.columns
+            span.prefix
+              i.fi-clock
+          .small-9.columns= f.text_field :end_time, class: 'task_time'
+      .small-3.columns= f.collection_select :task_id, Task.all, :id, :name
+
+
+  .actions = f.submit 'Save'

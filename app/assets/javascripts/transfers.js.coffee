@@ -5,6 +5,12 @@
 name_regexp = /transfer\[transfer_line_items_attributes\]\[(\d+)\]\[(.*)\]/
 id_regexp = /transfer_transfer_line_items_attributes_(\d+)_(.*)/
 
+reinterpretPageTitle = ->
+  location = $('#transfer_debit_attributes_location_id [selected]').html()
+  category = $('#transfer_debit_attributes_category_id [selected]').html()
+  # alert("Materials Transfer from " + location + " / " + category)
+  $('.page_title').html("Materials Transfer from " + location + " / " + category)
+
 inputName = ($element, index) ->
   match = name_regexp.exec $element.attr('name')
   input_name = match[2]
@@ -49,6 +55,7 @@ $ ->
   $('.datetime_field').fdatetimepicker()
   $('#line_items .line_item input[type=text]').first().focus()
 
+  $(document).on 'change', '.set_title', reinterpretPageTitle
   $(document).on 'click', '#add_line_item', (e) ->
     e.preventDefault()
     addLineItem()

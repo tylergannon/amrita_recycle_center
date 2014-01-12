@@ -1,0 +1,12 @@
+// Place all the styles related to the time_entries controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.panel.time_entry {
+  .prefix {
+    padding-top: 6px;
+    i {
+      font-size: large;
+    }
+  }
+}

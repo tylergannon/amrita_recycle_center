@@ -1,4 +1,9 @@
 AmritaRecycleCenter::Application.routes.draw do
+  devise_for :users
+  resources :time_entries
+
+  resources :tasks
+
   resources :transfer_line_items
 
   resources :containers

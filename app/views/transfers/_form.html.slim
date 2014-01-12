@@ -1,45 +1,47 @@
-.coolio
+br
 = form_for @transfer do |f|
-
-  = hidden_field_tag 'worksheet', @worksheet if @worksheet
-
-  - if @transfer.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@transfer.errors.count, "error")} prohibited this transfer from being saved:"
-      ul
-        - @transfer.errors.full_messages.each do |message|
-          li = message
-
   .panel
-    = f.label :transferred_at
-    = f.text_field :transferred_at, class: 'datetime_field'
-  h5 From:
-  = f.fields_for :debit_attributes, @debit do |ff|
-    .line-item-panel
+    h3.page_title= transfer_form_title
+
+    = hidden_field_tag 'worksheet', @worksheet if @worksheet
+
+    - if @transfer.errors.any?
+      #error_explanation
+        h2 = "#{pluralize(@transfer.errors.count, "error")} prohibited this transfer from being saved:"
+        ul
+          - @transfer.errors.full_messages.each do |message|
+            li = message
+
+    = f.fields_for :debit_attributes, @debit do |ff|
       .row
         .small-4.columns
-          = ff.label :container
-          = ff.collection_select :container_id, Container.all, :id, :name
-        .small-4.columns
-          = ff.label :category
-          = ff.collection_select :category_id, Category.all, :id, :name
-        .small-4.columns
-          = ff.label :location
-          = ff.collection_select :location_id, Location.all, :id, :name
+          = f.label :transferred_at, "Transferred At:"
+          = f.text_field :transferred_at, class: 'datetime_field'
+        .small-3.columns.small-offset-1
+          = ff.label :category, "From Category:"
+          = ff.collection_select :category_id, Category.all, :id, :name, {}, class: 'set_title'
+        .small-3.columns
+          = ff.label :location, "From Location:"
+          = ff.collection_select :location_id, Location.all, :id, :name, {}, class: 'set_title'
+        .small-1.columns
 
   h5 Items
   #line_items
     = f.fields_for :transfer_line_items, @credits do |ff|
       .row
-        .small-2.columns Gross Wt
-        .small-3.columns Category
-        .small-3.columns Container
-        .small-3.columns Location
+        .small-2.columns 
+          label Gross Wt
+        .small-3.columns 
+          label Category
+        .small-3.columns 
+          label Container
+        .small-3.columns 
+          label Location
         .small-1.columns 
       .line-item-panel.line_item
         .row
           .small-2.columns
-            = ff.text_field :gross_weight
+            = ff.text_field :gross_weight, autocomplete: 'off'
           .small-3.columns
             = ff.collection_select :category_id, Category.all, :id, :name, {}, class: 'category'
           .small-3.columns

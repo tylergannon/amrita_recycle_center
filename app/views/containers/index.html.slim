@@ -15,8 +15,8 @@ table
       td = container.capacity
       td = container.empty_weight
       td = link_to 'Show', container
-      td = link_to 'Edit', edit_container_path(container)
-      td = link_to 'Destroy', container, data: {:confirm => 'Are you sure?'}, :method => :delete
+      td = link_to 'Edit', edit_container_path(container) if can? :manage, container
+      td = link_to 'Destroy', container, data: {:confirm => 'Are you sure?'}, :method => :delete if can? :manage, container
 
 br
 

@@ -1,0 +1,3 @@
+$('#time_entries').append('<%= escape_javascript(render partial: 'time_entry', object: @time_entry) %>');
+$('form').find('.task_time').val('');
+$('#time_entry_start_time').focus();

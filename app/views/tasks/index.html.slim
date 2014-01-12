@@ -1,0 +1,20 @@
+h1 Task Types
+
+= link_to 'Add A Task', new_task_path
+
+table
+  tr
+    th Name
+    th
+    th
+    th
+
+  - @tasks.each do |task|
+    tr
+      td = task.name
+      td = link_to 'Show', task
+      td = link_to 'Edit', edit_task_path(task)
+      td = link_to 'Remove', task, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+

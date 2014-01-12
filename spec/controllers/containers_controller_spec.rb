@@ -23,7 +23,7 @@ describe ContainersController do
   # This should return the minimal set of attributes required to create a valid
   # Container. As you add validations to Container, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "name" => "MyString" } }
+  let(:valid_attributes) { { "name" => "MyString", capacity: "1", "empty_weight" => "2" } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -32,7 +32,7 @@ describe ContainersController do
 
   describe "GET index" do
     it "assigns all containers as @containers" do
-      container = Container.create! valid_attributes
+      container = create(:container)
       get :index, {}, valid_session
       assigns(:containers).should eq([Container.no_container, container])
     end
@@ -40,7 +40,7 @@ describe ContainersController do
 
   describe "GET show" do
     it "assigns the requested container as @container" do
-      container = Container.create! valid_attributes
+      container = create(:container)
       get :show, {:id => container.to_param}, valid_session
       assigns(:container).should eq(container)
     end
@@ -55,7 +55,7 @@ describe ContainersController do
 
   describe "GET edit" do
     it "assigns the requested container as @container" do
-      container = Container.create! valid_attributes
+      container = create(:container)
       get :edit, {:id => container.to_param}, valid_session
       assigns(:container).should eq(container)
     end
@@ -101,7 +101,7 @@ describe ContainersController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested container" do
-        container = Container.create! valid_attributes
+        container = create(:container)
         # Assuming there are no other containers in the database, this
         # specifies that the Container created on the previous line
         # receives the :update_attributes message with whatever params are
@@ -111,13 +111,13 @@ describe ContainersController do
       end
 
       it "assigns the requested container as @container" do
-        container = Container.create! valid_attributes
+        container = create(:container)
         put :update, {:id => container.to_param, :container => valid_attributes}, valid_session
         assigns(:container).should eq(container)
       end
 
       it "redirects to the container" do
-        container = Container.create! valid_attributes
+        container = create(:container)
         put :update, {:id => container.to_param, :container => valid_attributes}, valid_session
         response.should redirect_to(container)
       end
@@ -125,7 +125,7 @@ describe ContainersController do
 
     describe "with invalid params" do
       it "assigns the container as @container" do
-        container = Container.create! valid_attributes
+        container = create(:container)
         # Trigger the behavior that occurs when invalid params are submitted
         Container.any_instance.stub(:save).and_return(false)
         put :update, {:id => container.to_param, :container => { "name" => "invalid value" }}, valid_session
@@ -133,7 +133,7 @@ describe ContainersController do
       end
 
       it "re-renders the 'edit' template" do
-        container = Container.create! valid_attributes
+        container = create(:container)
         # Trigger the behavior that occurs when invalid params are submitted
         Container.any_instance.stub(:save).and_return(false)
         put :update, {:id => container.to_param, :container => { "name" => "invalid value" }}, valid_session
@@ -144,14 +144,14 @@ describe ContainersController do
 
   describe "DELETE destroy" do
     it "destroys the requested container" do
-      container = Container.create! valid_attributes
+      container = create(:container)
       expect {
         delete :destroy, {:id => container.to_param}, valid_session
       }.to change(Container, :count).by(-1)
     end
 
     it "redirects to the containers list" do
-      container = Container.create! valid_attributes
+      container = create(:container)
       delete :destroy, {:id => container.to_param}, valid_session
       response.should redirect_to(containers_url)
     end

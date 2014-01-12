@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "transfers/new" do
   before(:each) do
-    assign(:transfer, stub_model(Transfer).as_new_record)
+    assign(:transfer, build(:transfer))
   end
 
   it "renders new transfer form" do
