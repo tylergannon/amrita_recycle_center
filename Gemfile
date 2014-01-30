@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.2'
+gem 'rails', '4.1.0.beta1'
 
 gem 'pg'
 
@@ -10,10 +10,9 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'turbolinks'
-gem 'friendly_id'
+gem 'friendly_id', github: 'norman/friendly_id'
 gem 'chosen-rails'
 gem 'foundation-icons-sass-rails'
-
 gem 'devise'
 gem 'cancan'
 gem 'responders'
@@ -37,6 +36,7 @@ group :doc do
 end
 
 group :development, :test do
+  gem 'minitest'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'rspec_rails_setup', path: '../rspec_rails_setup'
@@ -44,6 +44,8 @@ group :development, :test do
   gem 'database_cleaner', require: false
   gem 'spork', '1.0.0rc4'
   gem 'timecop'
+  gem 'spring', '1.1.0.beta4'
+  gem 'spring-commands-rspec'
   # gem 'vcr'
   # gem 'webmock'
 end
