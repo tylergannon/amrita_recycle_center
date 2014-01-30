@@ -1,5 +1,5 @@
 br
-= form_for @transfer do |f|
+= form_for @transfer, html: {data: {abide: true}} do |f|
   .panel
     h3.page_title= transfer_form_title
 
@@ -41,9 +41,12 @@ br
       .line-item-panel.line_item
         .row
           .small-2.columns
-            = ff.text_field :gross_weight, autocomplete: 'off'
+            = ff.text_field :gross_weight, autocomplete: 'off', required: true
           .small-3.columns
-            = ff.collection_select :category_id, Category.all, :id, :name, {}, class: 'category'
+            select id="transfer_transfer_line_items_attributes_0_category_id" name="transfer[transfer_line_items_attributes][0][category_id]" class="category"
+              - Category.all.each do |category|
+                option value="#{category.id}" data-default-container="#{category.default_container_id}"= category.name
+            / = ff.collection_select :category_id, Category.all, :id, :name, {}, class: 'category'
           .small-3.columns
             = ff.collection_select :container_id, Container.all, :id, :name, {}, class: 'container'
           .small-3.columns

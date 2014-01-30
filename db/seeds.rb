@@ -1,17 +1,4 @@
 
-Category.delete_all
-Category.create([
-  {name: "Hard Items"},
-  {name: "Soft Plastic"},
-  {name: "Paper"},
-  {name: "Cardboard"},
-  {name: "Cloth"},
-  {name: "PET"},
-  {name: "Sanitary"},
-  {name: "Hair and Dust"},
-  {name: "Burning"}
-])
-
 Location.delete_all
 Location.create([
   {name: "Waste Station"},
@@ -48,4 +35,18 @@ Task.create([
   {name: 'Paper Sorting'},
   {name: 'Hard Items Sorting'},
   {name: 'Facilities Management'}
+])
+
+Category.delete_all
+Category.create!([
+  {name: "Waste Station", default_container_friendly_id: "120l_red_bin"},
+  {name: "Hard Items", default_container_friendly_id: "120l_red_bin"},
+  {name: "Soft Plastic", default_container_friendly_id: "120l_orange_bin"},
+  {name: "Paper", default_container_friendly_id: "120l_blue_bin"},
+  {name: "Cardboard", default_container_friendly_id: "120l_blue_bin"},
+  {name: "Cloth", default_container_friendly_id: "120l_blue_bin"},
+  {name: "PET", default_container_friendly_id: "120l_red_bin"},
+  {name: "Sanitary", default_container_friendly_id: "100l_pink_bin"},
+  {name: "Hair and Dust", default_container_friendly_id: "60l_beige_bin"},
+  {name: "Burning", default_container_friendly_id: "100l_pink_bin"}
 ])

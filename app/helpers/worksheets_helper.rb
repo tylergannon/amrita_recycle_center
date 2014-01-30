@@ -9,7 +9,7 @@ module WorksheetsHelper
   
   def to_presort_path(category_id, container_id, from_location_id)
     new_transfer_path \
-    from: {category_id: category_id, location_id: from_location_id},
+    from: {category_id: category_id, location_id: from_location_id, from_category_id: 'waste_station'},
     to: {container_id: container_id, category_id: category_id, location_id: 'pre_sort'}
   end
   

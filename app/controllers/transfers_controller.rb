@@ -13,7 +13,7 @@ class TransfersController < ApplicationController
   def new
     @transfer = Transfer.new
     @debit = @transfer.debit
-    @debit.set_category_by_id from_params[:category_id]
+    @debit.set_category_by_id from_params[:from_category_id]
     @debit.set_location_by_id from_params[:location_id]
     
     if params[:worksheet]

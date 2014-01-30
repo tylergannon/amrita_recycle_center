@@ -6,5 +6,6 @@ FactoryGirl.define do
   end
   factory :category do
     name
+    association :default_container, factory: :container
   end
 end

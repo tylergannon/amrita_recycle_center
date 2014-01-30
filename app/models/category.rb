@@ -10,4 +10,8 @@ class Category < ActiveRecord::Base
   def friendly_name
     name.downcase.gsub(/[ -]/, '_') if name
   end
+  
+  def default_container_friendly_id=(friendly_id)
+    self.default_container = Container.friendly.find(friendly_id)
+  end
 end

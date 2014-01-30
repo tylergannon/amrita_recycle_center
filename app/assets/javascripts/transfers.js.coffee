@@ -26,6 +26,13 @@ inputId = ($element, index) ->
   input_name = match[2]
   "transfer_transfer_line_items_attributes_" + index.toString() + "_" + input_name
 
+categoryChanged = (event) ->
+  $this = $(this)
+  default_container_id = $this.find('option:selected').attr('data-default-container')
+  $container_select = $this.parents('.line_item').find('select.container')
+  $container_select.val(default_container_id)
+  $container_select.trigger('chosen:updated')
+
 addLineItem = () ->
   $line_items = $('#line_items .line_item')
   $last_line_item = $line_items.last()
@@ -54,6 +61,8 @@ $ ->
   $('#line_items .line_item select').chosen()
   $('.datetime_field').fdatetimepicker()
   $('#line_items .line_item input[type=text]').first().focus()
+  
+  $(document).on 'change', 'select.category', categoryChanged
 
   $(document).on 'change', '.set_title', reinterpretPageTitle
   $(document).on 'click', '#add_line_item', (e) ->

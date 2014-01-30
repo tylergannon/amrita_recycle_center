@@ -6,7 +6,11 @@
         - @category.errors.full_messages.each do |message|
           li = message
 
-  .field
-    = f.label :name
-    = f.text_field :name
+  .row
+    .small-6.columns
+      = f.label :name
+      = f.text_field :name
+    .small-6.columns
+      = f.collection_select :default_container_id, Container.all, :id, :name, {}, class: 'container'
+  
   .actions = f.submit 'Save'
