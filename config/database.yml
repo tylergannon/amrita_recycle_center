@@ -50,7 +50,8 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
+  host: localhost
   database: amrita_recycle_center_production
   pool: 5
   username: amrita_recycle_center
-  password:
+  password: recycle_that

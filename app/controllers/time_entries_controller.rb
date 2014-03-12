@@ -4,6 +4,10 @@ class TimeEntriesController < ApplicationController
 
   def index
     @time_entries = TimeEntry.all
+    if params[:date]
+      @date = Date.parse(params[:date])
+      @time_entries.where! start_time: @date..(@date+1.day)
+    end
     @time_entry   = TimeEntry.new
     respond_with(@time_entries)
   end

@@ -39,7 +39,7 @@ group :development, :test do
   gem 'minitest'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
-  gem 'rspec_rails_setup', path: '../rspec_rails_setup'
+  # gem 'rspec_rails_setup', path: '../rspec_rails_setup'
   gem 'shoulda-matchers'
   gem 'database_cleaner', require: false
   gem 'spork', '1.0.0rc4'

@@ -61,6 +61,9 @@ class Transfer < ActiveRecord::Base
   def balance!
     return if credits.empty?
     transfer_line_items.each &:balance!
+    transfer_line_items.each do |tli|
+      puts tli.inspect
+    end
     foo = credits.map(&:net_weight)
     bar = - foo.inject(:+)
     debit.gross_weight = bar - debit.container.empty_weight

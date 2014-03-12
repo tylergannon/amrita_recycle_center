@@ -17,6 +17,8 @@ AmritaRecycleCenter::Application.routes.draw do
   resources :worksheets
   
   root to: 'transfers#index'
+  
+  get 'time_entries/by_date/:date' => 'time_entries#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

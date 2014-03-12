@@ -50,3 +50,12 @@ Category.create!([
   {name: "Hair and Dust", default_container_friendly_id: "60l_beige_bin"},
   {name: "Burning", default_container_friendly_id: "100l_pink_bin"}
 ])
+
+Tasks.delete_all
+Task.create!([
+  {name: 'Transport'},
+  {name: 'Pre-Sort'},
+  {name: 'Facility Management'},
+  {name: 'Hard Items Table'},
+  {name: 'Paper Table'}
+])
