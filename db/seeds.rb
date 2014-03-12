@@ -51,7 +51,7 @@ Category.create!([
   {name: "Burning", default_container_friendly_id: "100l_pink_bin"}
 ])
 
-Tasks.delete_all
+Task.delete_all
 Task.create!([
   {name: 'Transport'},
   {name: 'Pre-Sort'},
